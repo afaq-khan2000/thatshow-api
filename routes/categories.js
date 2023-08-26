@@ -42,11 +42,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/", upload.single("image"), createCategory);
+router.post("/", requireSignin, upload.single("image"), createCategory);
 router.get("/", getCategories);
 router.get("/:id", getCategory);
-router.delete("/:id", deleteCategory);
-router.put("/:id", upload.single("image"), updateCategory);
-router.put("/change-order/:id", changeOrder);
+router.delete("/:id", requireSignin, deleteCategory);
+router.put("/:id", requireSignin, upload.single("image"), updateCategory);
+router.put("/change-order/:id", requireSignin, changeOrder);
 
 module.exports = router;

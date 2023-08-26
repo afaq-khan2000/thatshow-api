@@ -28,22 +28,22 @@ const storage = multer.diskStorage({
     cb(
       null,
       file?.fieldname +
-      "-" +
-      Date.now() +
-      file?.originalname.toLowerCase().split(" ").join("-")
+        "-" +
+        Date.now() +
+        file?.originalname.toLowerCase().split(" ").join("-")
     );
   },
 });
 
 const upload = multer({ storage: storage });
 
-router.post("/", upload.single("image"), createSubCategory);
+router.post("/", requireSignin, upload.single("image"), createSubCategory);
 router.get("/:id", getSubCategoriesByCategory);
-router.put("/:id", upload.single("image"), updateSubCategory);
+router.put("/:id", requireSignin, upload.single("image"), updateSubCategory);
 router.get("/", getSubCategories);
 router.get("/single/:id", getSingleSubCategory);
 router.get("/by-category-name/:categoryName", getSubCategoriesByCategoryName);
-router.delete("/:id", deleteSubCategory);
-router.delete("/byCategory/:id", deleteSubCategoryByCategory);
+router.delete("/:id", requireSignin, deleteSubCategory);
+router.delete("/byCategory/:id", requireSignin, deleteSubCategoryByCategory);
 
 module.exports = router;

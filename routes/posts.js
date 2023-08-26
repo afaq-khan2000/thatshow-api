@@ -1,6 +1,7 @@
 const express = require("express");
 var multer = require("multer");
 const { Base_URL } = require("../config");
+import { requireSignin } from "../middlewares/auth";
 
 const {
   getAllPosts,
@@ -31,17 +32,17 @@ const upload = multer({ storage: storage });
 router.post("/upload", upload.single("file"), (req, res) => {
   console.log("starting upload...", req.file);
 
-  res.json(`${Base_URL}public/posts/` + req.file.filename);
+  res.json(`public/posts/` + req.file.filename);
 });
-router.post("/", upload.single("image"), addPost);
+router.post("/", requireSignin, upload.single("image"), addPost);
 router.get("/", getAllPosts);
 router.get("/by-category-name/:categoryName", getPostsByCategoryName);
 router.get("/by-clicks", getPostsByClicks);
 router.get("/:id", getSinglePost);
-router.put("/:id", upload.single("editImage"), updatePost);
-router.put("/soft-delete/:id", softDeletePost);
-router.put("/decline-soft-delete/:id", declineSoftDeletePost);
+router.put("/:id", requireSignin, upload.single("editImage"), updatePost);
+router.put("/soft-delete/:id", requireSignin, softDeletePost);
+router.put("/decline-soft-delete/:id", requireSignin, declineSoftDeletePost);
 router.post("/:id", clickPost);
-router.delete("/:id", deletePost);
+router.delete("/:id", requireSignin, deletePost);
 
 module.exports = router;
