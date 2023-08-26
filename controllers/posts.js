@@ -6,7 +6,7 @@ exports.getAllPosts = async function (req, res, next) {
   try {
     const posts = await Post.find()
       .populate("categoryId")
-      .populate("subCategoryId")
+      // .populate("subCategoryId")
       .populate("deletedBy")
       .populate("userId")
       .sort({ createdAt: -1 });
@@ -23,7 +23,7 @@ exports.getPostsByCategoryName = async function (req, res, next) {
     if (!category) return res.status(402).json("Category does not exist");
     const posts = await Post.find({ categoryId: category._id })
       .populate("categoryId")
-      .populate("subCategoryId")
+      // .populate("subCategoryId")
       .sort({ updatedAt: -1 });
     res.status(200).json(posts);
   } catch (e) {
@@ -35,7 +35,7 @@ exports.getPostsByClicks = async function (req, res, next) {
   try {
     const posts = await Post.find()
       .populate("categoryId")
-      .populate("subCategoryId")
+      // .populate("subCategoryId")
       .sort({ clicks: -1 })
       .limit(10);
     res.status(200).json(posts);
@@ -48,7 +48,7 @@ exports.getSinglePost = async function (req, res, next) {
   try {
     const post = await Post.findById(req.params.id)
       .populate("categoryId")
-      .populate("subCategoryId");
+      // .populate("subCategoryId");
     res.status(200).json(post);
   } catch (e) {
     res.status(404).json({ message: e.message });
@@ -63,7 +63,7 @@ exports.addPost = async function (req, res, next) {
     metaTitle,
     metaDescription,
     categoryId,
-    subCategoryId,
+    // subCategoryId,
     content,
   } = req.body;
   // const image = req.files;
@@ -74,7 +74,7 @@ exports.addPost = async function (req, res, next) {
     metaTitle,
     metaDescription,
     categoryId,
-    subCategoryId,
+    // subCategoryId,
     userId,
     title,
     content,
@@ -93,7 +93,7 @@ exports.updatePost = async function (req, res, next) {
     image,
     metaDescription,
     categoryId,
-    subCategoryId,
+    // subCategoryId,
     content,
   } = req.body;
   let editImage = req.file?.filename;
@@ -105,7 +105,7 @@ exports.updatePost = async function (req, res, next) {
     metaTitle,
     metaDescription,
     categoryId,
-    subCategoryId,
+    // subCategoryId,
     content,
   };
   if (editImage) {

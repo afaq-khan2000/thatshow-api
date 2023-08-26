@@ -7,10 +7,10 @@ const postSchema = mongoose.Schema(
       ref: "categories",
       required: true,
     },
-    subCategoryId: {
-      type: mongoose.Types.ObjectId,
-      ref: "subCategories",
-    },
+    // subCategoryId: {
+    //   type: mongoose.Types.ObjectId,
+    //   ref: "subCategories",
+    // },
     userId: { type: mongoose.Types.ObjectId, ref: "users", required: true },
     deletedBy: { type: mongoose.Types.ObjectId, ref: "users" },
     newsType: {
