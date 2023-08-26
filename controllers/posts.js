@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Post = require("../models/post");
 const Category = require("../models/Category");
+const slugify = require("slugify");
 
 exports.getAllPosts = async function (req, res, next) {
   try {
@@ -68,7 +69,7 @@ exports.addPost = async function (req, res, next) {
   } = req.body;
   // const image = req.files;
   const image = req.file?.filename;
-  console.log(userId);
+  const slug = slugify(title, { lower: true });
   const post = new Post({
     newsType: type,
     metaTitle,
@@ -79,6 +80,7 @@ exports.addPost = async function (req, res, next) {
     title,
     content,
     image,
+    slug,
   });
   await post.save();
   console.log("Success");
