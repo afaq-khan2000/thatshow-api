@@ -1,7 +1,7 @@
 const express = require("express");
 var multer = require("multer");
 const { Base_URL } = require("../config");
-import { requireSignin } from "../middlewares/auth";
+const { requireSignin } = require("../middlewares/auth.js");
 
 const {
   getAllPosts,
