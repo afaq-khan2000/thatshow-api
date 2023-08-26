@@ -13,8 +13,8 @@ const router = express.Router();
 router.post("/signup", signup);
 router.post("/login", signin);
 router.post("/", createUser);
-router.get("/", getUsers);
+router.get("/", requireSignin, getUsers);
 router.get("/profile", requireSignin, getProfile);
-router.delete("/:id", deleteUser);
+router.delete("/:id", requireSignin, deleteUser);
 
 module.exports = router;
