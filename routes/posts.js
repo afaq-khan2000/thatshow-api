@@ -34,7 +34,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
 
   res.json(`public/posts/` + req.file.filename);
 });
-router.post("/", requireSignin, upload.single("image"), addPost);
+router.post("/", upload.single("image"), addPost);
 router.get("/", getAllPosts);
 router.get("/by-category-name/:categoryName", getPostsByCategoryName);
 router.get("/by-clicks", getPostsByClicks);
